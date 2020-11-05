@@ -2,9 +2,9 @@
 
 namespace AGILEDROP\LaravelTelnyx\Tests;
 
+use AGILEDROP\LaravelTelnyx\LaravelTelnyxServiceProvider;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Orchestra\Testbench\TestCase as Orchestra;
-use AGILEDROP\LaravelTelnyx\LaravelTelnyxServiceProvider;
 
 class TestCase extends Orchestra
 {

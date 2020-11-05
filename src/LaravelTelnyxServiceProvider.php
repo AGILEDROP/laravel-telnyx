@@ -21,7 +21,6 @@ class LaravelTelnyxServiceProvider extends ServiceProvider
                 LaravelTelnyxCommand::class,
             ]);*/
         }
-
     }
 
     /**

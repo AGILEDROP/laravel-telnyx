@@ -5,9 +5,8 @@ namespace Illuminate\Notifications\Channels;
 use Illuminate\Notifications\Messages\TelnyxMessage;
 use Illuminate\Notifications\Notification;
 
-use Telnyx\Telnyx;
 use Telnyx\ApiOperations\Create;
-
+use Telnyx\Telnyx;
 
 class TelnyxSmsChannel
 {
