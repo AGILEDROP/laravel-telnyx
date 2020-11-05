@@ -11,14 +11,13 @@
         {
             "name": "Davide Casiraghi",
             "email": "davide.casiraghi@agiledrop.com",
-            "homepage": "https://spatie.be",
+            "homepage": "https://www.agiledrop.com/",
             "role": "Developer"
         }
     ],
     "require": {
         "php": "^7.4",
         "curl/curl": "^2.3",
-        "illuminate/contracts": "^8.0",
         "telnyx/telnyx-php": "^2.1"
     },
     "require-dev": {
