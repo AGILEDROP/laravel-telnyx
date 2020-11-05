@@ -1,6 +1,6 @@
 <?php
 
-namespace Spatie\Skeleton\Tests;
+namespace AGILEDROP\LaravelTelnyx\Tests;
 
 class ExampleTest extends TestCase
 {
