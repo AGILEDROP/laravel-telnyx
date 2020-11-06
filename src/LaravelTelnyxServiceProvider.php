@@ -4,6 +4,7 @@ namespace AGILEDROP\LaravelTelnyx;
 
 use Illuminate\Support\Facades\Notification;
 use Illuminate\Support\ServiceProvider;
+use Illuminate\Notifications\ChannelManager;
 
 class LaravelTelnyxServiceProvider extends ServiceProvider
 {
