@@ -30,12 +30,13 @@
     },
     "autoload": {
         "psr-4": {
-            "Illuminate\\Notifications\\": "src"
+            "AGILEDROP\\LaravelTelnyx\\": "src",
+            "AGILEDROP\\LaravelTelnyx\\Database\\Factories\\": "database/factories"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "Illuminate\\Tests\\Notifications\\": "tests"
+            "AGILEDROP\\LaravelTelnyx\\Tests\\": "tests"
         }
     },
     "scripts": {
@@ -50,8 +51,11 @@
     "extra": {
         "laravel": {
             "providers": [
-                "Illuminate\\Notifications\\LaravelTelnyxServiceProvider"
-            ]
+                "AGILEDROP\\LaravelTelnyx\\LaravelTelnyxServiceProvider"
+            ],
+            "aliases": {
+                "LaravelTelnyx": "AGILEDROP\\LaravelTelnyx\\LaravelTelnyxFacade"
+            }
         }
     },
     "minimum-stability": "dev",

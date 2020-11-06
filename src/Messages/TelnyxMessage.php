@@ -1,6 +1,6 @@
 <?php
 
-namespace Illuminate\Notifications\Messages;
+namespace AGILEDROP\LaravelTelnyx\Messages;
 
 class TelnyxMessage
 {

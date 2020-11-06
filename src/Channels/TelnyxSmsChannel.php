@@ -1,8 +1,8 @@
 <?php
 
-namespace Illuminate\Notifications\Channels;
+namespace AGILEDROP\LaravelTelnyx\Channels;
 
-use Illuminate\Notifications\Messages\TelnyxMessage;
+use AGILEDROP\LaravelTelnyx\Messages\TelnyxMessage;
 use Illuminate\Notifications\Notification;
 
 use Telnyx\ApiOperations\Create;

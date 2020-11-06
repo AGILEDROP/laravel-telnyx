@@ -1,6 +1,6 @@
 <?php
 
-namespace Illuminate\Notifications;
+namespace AGILEDROP\LaravelTelnyx;
 
 use Illuminate\Support\Facades\Notification;
 use Illuminate\Support\ServiceProvider;
