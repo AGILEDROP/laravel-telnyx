@@ -44,7 +44,7 @@ class TelnyxSmsChannel
      * @param  mixed  $notifiable
      * @param  \Illuminate\Notifications\Notification  $notification
      *
-     * @return \Telnyx\ApiResource
+     * @return \Telnyx\ApiResource|null
      */
     public function send($notifiable, Notification $notification)
     {
@@ -64,11 +64,13 @@ class TelnyxSmsChannel
 
         return $this->create([
             "messaging_profile_id" => $this->profileId,
-            'from' => $this->from,
+            'from' => $message->from ?: $this->from,
             'to' => $to,
-            'text' => trim($notification->content),
+            'text' => trim($message->content),
             //'subject' => 'Picture',
             //'media_urls' => ['https://picsum.photos/500.jpg']
+
+            //'client_ref' => $message->clientReference,
         ]);
     }
 }
