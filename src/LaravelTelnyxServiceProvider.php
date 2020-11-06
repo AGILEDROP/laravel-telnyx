@@ -1,9 +1,6 @@
 <?php
 
-namespace AGILEDROP\LaravelTelnyx;
-
-use Illuminate\Notifications\ChannelManager;
-use Illuminate\Notifications\Channels\TelnyxSmsChannel;
+namespace Illuminate\Notifications;
 
 use Illuminate\Support\Facades\Notification;
 use Illuminate\Support\ServiceProvider;
@@ -34,7 +31,7 @@ class LaravelTelnyxServiceProvider extends ServiceProvider
 
         Notification::resolved(function (ChannelManager $service) {
             $service->extend('telnyx', function ($app) {
-                return new TelnyxSmsChannel(
+                return new Channels\TelnyxSmsChannel(
                     config('laravel-telnyx.messaging_profile_id'),
                     config('laravel-telnyx.from')
                 );
