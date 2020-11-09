@@ -22,7 +22,7 @@ php artisan vendor:publish --provider="AGILEDROP\LaravelTelnyx\LaravelTelnyxServ
 php artisan migrate
 ```
 
-You can publish the config file with:
+You should publish the config file with:
 ```bash
 php artisan vendor:publish --provider="AGILEDROP\LaravelTelnyx\LaravelTelnyxServiceProvider" --tag="config"
 ```
@@ -31,17 +31,57 @@ This is the contents of the published config file:
 
 ```php
 return [
-    'api_key' => '',
-    'messaging_profile_id' => '',
-    'from' => '',
+
+    /*
+     * The API KEY.
+     *
+     * You can generate API keys from the Telnyx web interface. 
+     * See https://developers.telnyx.com/docs/v2/development/authentication for details
+     */
+    'api_key' => env('TELNYX_API_KEY'),
+
+    /*
+     * The phone number or a text that is shown as sender
+     * 
+     */
+    'from' => env('TELNYX_FROM'), // Can be phone number or name
+
+
+    /*
+     * The messaging profile id.
+     * Also generated from the Telnyx web interface. 
+     */
+	'messaging_profile_id' => env('TELNYX_MESSAGING_PROFILE_ID'),
 ];
+```
+
+You should then add you your .env file the following variables with your parameters:
+```
+TELNYX_API_KEY=
+TELNYX_FROM=
+TELNYX_MESSAGING_PROFILE_ID=
 ```
 
 ## Usage
 
+In your Laravel Notification you just need to import the class and implement the toTelnyx() method.
+
+
 ``` php
-$laravel-telnyx = new AGILEDROP\LaravelTelnyx();
-echo $laravel-telnyx->echoPhrase('Hello, AGILEDROP!');
+
+use AGILEDROP\LaravelTelnyx\Messages\TelnyxMessage;
+
+/**
+ * Get the Telnyx / SMS representation of the notification.
+ *
+ * @param  mixed  $notifiable
+ * @return TelnyxMessage
+ */
+public function toTelnyx($notifiable)   //todo - previously was toNexmo
+{
+    return (new TelnyxMessage)
+        ->content($this->alert->short_description);
+}
 ```
 
 ## Testing
