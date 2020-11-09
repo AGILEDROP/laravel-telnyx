@@ -5,11 +5,18 @@ namespace AGILEDROP\LaravelTelnyx\Messages;
 class TelnyxMessage
 {
     /**
-     * The message content.
+     * The message text content.
      *
      * @var string
      */
     public $content;
+
+    /**
+     * The message image urls, used in case of MMS.
+     *
+     * @var string
+     */
+    public $images;
 
     /**
      * The phone number the message should be sent from.
@@ -42,23 +49,27 @@ class TelnyxMessage
     /**
      * Create a new message instance.
      *
-     * @param  string  $content
-     * @return void
+     * @param string $content
+     * @param array $images
      */
-    public function __construct($content = '')
+    public function __construct($content = '', $images = null)
     {
         $this->content = $content;
+        $this->images = $images;
     }
 
     /**
      * Set the message content.
      *
-     * @param  string  $content
+     * @param string $content
+     * @param null $images
+     *
      * @return $this
      */
-    public function content($content)
+    public function content($content, $images = null)
     {
         $this->content = $content;
+        $this->images = $images;
 
         return $this;
     }

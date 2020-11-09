@@ -4,42 +4,14 @@ namespace AGILEDROP\LaravelTelnyx\Channels;
 
 use AGILEDROP\LaravelTelnyx\Messages\TelnyxMessage;
 use Illuminate\Notifications\Notification;
-
-//use Telnyx\ApiOperations\Create;
 use Telnyx\Telnyx;
 
-class TelnyxSmsChannel
+class MmsChannel extends BaseChannel
 {
-    //use Create;
-
     /**
-     * The Telnyx profile ID
+     * Send the given notification trough MMS.
      *
-     * @var string
-     */
-    protected $profileId;
-
-    /**
-     * The phone number notifications should be sent from.
-     *
-     * @var string
-     */
-    protected $from;
-
-    /**
-     * Create a new Telnyx channel instance.
-     *
-     * @param  string  $from
-     * @return void
-     */
-    public function __construct($profileId, $from)
-    {
-        $this->profileId = $profileId;
-        $this->from = $from;
-    }
-
-    /**
-     * Send the given notification.
+     * The Telnyx API knows to send an MMS message when media_urls is specified.
      *
      * @param  mixed  $notifiable
      * @param  \Illuminate\Notifications\Notification  $notification
@@ -62,16 +34,13 @@ class TelnyxSmsChannel
 
         Telnyx::setApiKey(config('laravel-telnyx.api_key'));
 
-        $new_message = \Telnyx\Message::Create([
+        return \Telnyx\Message::Create([
             "messaging_profile_id" => $this->profileId,
             'from' => $message->from ?: $this->from,
             'to' => $to,
             'text' => trim($message->content),
-            //'subject' => 'Picture',
-            //'media_urls' => ['https://picsum.photos/500.jpg']
-            //'client_ref' => $message->clientReference,
+            'subject' => 'Alert from NUM',
+            'media_urls' => $message->images,
         ]);
-
-        return $new_message;
     }
 }
