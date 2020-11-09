@@ -43,8 +43,6 @@ class LaravelTelnyxServiceProvider extends ServiceProvider
                     config('laravel-telnyx.from')
                 );
             });
-
-
         });
     }
 }
