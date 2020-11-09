@@ -114,7 +114,7 @@ public function via($notifiable)
 }
 
 /**
- * Get the Telnyx / SMS representation of the notification.
+ * Get the Telnyx / MMS representation of the notification.
  *
  * @param  mixed  $notifiable
  * @return TelnyxMessage
@@ -124,6 +124,7 @@ public function toTelnyx($notifiable)
     return (new TelnyxMessage)
         ->content(
             "The content of the message",
+            "The message subject",
             $theArrayWithImagesUrls,
         );
 }

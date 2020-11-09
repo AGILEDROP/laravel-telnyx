@@ -12,6 +12,13 @@ class TelnyxMessage
     public $content;
 
     /**
+     * The message text subject, used in case of MMS.
+     *
+     * @var string
+     */
+    public $subject;
+
+    /**
      * The message image urls, used in case of MMS.
      *
      * @var string
@@ -50,11 +57,13 @@ class TelnyxMessage
      * Create a new message instance.
      *
      * @param string $content
+     * @param string $subject
      * @param array $images
      */
-    public function __construct($content = '', $images = null)
+    public function __construct($content = '', $subject = '', $images = null)
     {
         $this->content = $content;
+        $this->subject = $subject;
         $this->images = $images;
     }
 
@@ -62,13 +71,15 @@ class TelnyxMessage
      * Set the message content.
      *
      * @param string $content
+     * @param string $subject
      * @param null $images
      *
      * @return $this
      */
-    public function content($content, $images = null)
+    public function content($content, $subject = '', $images = null)
     {
         $this->content = $content;
+        $this->subject = $subject;
         $this->images = $images;
 
         return $this;

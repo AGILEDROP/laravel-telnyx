@@ -39,7 +39,7 @@ class MmsChannel extends BaseChannel
             'from' => $message->from ?: $this->from,
             'to' => $to,
             'text' => trim($message->content),
-            'subject' => 'Alert from NUM',
+            'subject' => $message->subject,
             'media_urls' => $message->images,
         ]);
     }
