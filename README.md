@@ -64,12 +64,25 @@ TELNYX_MESSAGING_PROFILE_ID=
 
 ## Usage
 
-In your Laravel Notification you just need to import the class and implement the toTelnyx() method.
+In your Laravel Notification you just need to 
+- Specify the notification channel
+- import the class and implement the toTelnyx() method.
 
-
+### For SMS
 ``` php
 
 use AGILEDROP\LaravelTelnyx\Messages\TelnyxMessage;
+
+/**
+ * Get the notification's delivery channels.
+ *
+ * @param  mixed  $notifiable
+ * @return array
+ */
+public function via($notifiable)
+{
+    return ['telnyx-sms'];
+}
 
 /**
  * Get the Telnyx / SMS representation of the notification.
@@ -77,10 +90,42 @@ use AGILEDROP\LaravelTelnyx\Messages\TelnyxMessage;
  * @param  mixed  $notifiable
  * @return TelnyxMessage
  */
-public function toTelnyx($notifiable)   //todo - previously was toNexmo
+public function toTelnyx($notifiable)
 {
     return (new TelnyxMessage)
-        ->content($this->alert->short_description);
+        ->content("The text content of the message");
+}
+```
+
+### For MMS
+``` php
+
+use AGILEDROP\LaravelTelnyx\Messages\TelnyxMessage;
+
+/**
+ * Get the notification's delivery channels.
+ *
+ * @param  mixed  $notifiable
+ * @return array
+ */
+public function via($notifiable)
+{
+    return ['telnyx-mms'];
+}
+
+/**
+ * Get the Telnyx / SMS representation of the notification.
+ *
+ * @param  mixed  $notifiable
+ * @return TelnyxMessage
+ */
+public function toTelnyx($notifiable)
+{
+    return (new TelnyxMessage)
+        ->content(
+            "The content of the message",
+            $theArrayWithImagesUrls,
+        );
 }
 ```
 
