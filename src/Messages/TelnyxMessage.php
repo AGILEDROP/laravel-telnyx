@@ -69,7 +69,6 @@ class TelnyxMessage
         $this->from = $from;
     }
 
-
     /**
      * Set the phone number the message should be sent from.
      *
