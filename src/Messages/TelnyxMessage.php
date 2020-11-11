@@ -56,34 +56,19 @@ class TelnyxMessage
     /**
      * Create a new message instance.
      *
+     * @param string $from
      * @param string $content
-     * @param string $subject
-     * @param array $images
+     * @param string $subject - Just for MMS
+     * @param array $images - Just for MMS
      */
-    public function __construct($content = '', $subject = '', $images = null)
+    public function __construct(string $from, string $content, string $subject = '', array $images = null)
     {
         $this->content = $content;
         $this->subject = $subject;
         $this->images = $images;
+        $this->from = $from;
     }
 
-    /**
-     * Set the message content.
-     *
-     * @param string $content
-     * @param string $subject
-     * @param null $images
-     *
-     * @return $this
-     */
-    public function content($content, $subject = '', $images = null)
-    {
-        $this->content = $content;
-        $this->subject = $subject;
-        $this->images = $images;
-
-        return $this;
-    }
 
     /**
      * Set the phone number the message should be sent from.

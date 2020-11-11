@@ -30,7 +30,7 @@
     },
     "autoload": {
         "psr-4": {
-            "AGILEDROP\\LaravelTelnyx\\": "src",
+            "AGILEDROP\\LaravelTelnyx\\": "src/",
             "AGILEDROP\\LaravelTelnyx\\Database\\Factories\\": "database/factories"
         }
     },
