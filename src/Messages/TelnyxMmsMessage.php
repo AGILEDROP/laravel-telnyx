@@ -68,5 +68,4 @@ class TelnyxMmsMessage extends TelnyxBaseMessage
         $this->images = $images;
         $this->from = $from;
     }
-
 }

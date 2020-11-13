@@ -4,7 +4,6 @@ namespace AGILEDROP\LaravelTelnyx\Messages;
 
 abstract class TelnyxBaseMessage
 {
-
     /**
      * Set the phone number the message should be sent from.
      *

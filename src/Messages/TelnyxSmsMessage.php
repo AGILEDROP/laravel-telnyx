@@ -50,5 +50,4 @@ class TelnyxSmsMessage extends TelnyxBaseMessage
         $this->content = $content;
         $this->from = $from;
     }
-
 }
