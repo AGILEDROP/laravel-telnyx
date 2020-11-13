@@ -32,10 +32,5 @@ class TestCase extends Orchestra
             'database' => ':memory:',
             'prefix' => '',
         ]);
-
-        /*
-        include_once __DIR__.'/../database/migrations/create_laravel_telnyx_table.php.stub';
-        (new \CreatePackageTable())->up();
-        */
     }
 }

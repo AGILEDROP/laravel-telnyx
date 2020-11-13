@@ -2,8 +2,9 @@
 
 namespace AGILEDROP\LaravelTelnyx\Channels;
 
-use AGILEDROP\LaravelTelnyx\Messages\TelnyxMessage;
+use AGILEDROP\LaravelTelnyx\Messages\TelnyxSmsMessage;
 use Illuminate\Notifications\Notification;
+use Telnyx\Message;
 use Telnyx\Telnyx;
 
 class SmsChannel extends BaseChannel
@@ -14,7 +15,7 @@ class SmsChannel extends BaseChannel
      * @param  mixed  $notifiable
      * @param  \Illuminate\Notifications\Notification  $notification
      *
-     * @return \Telnyx\ApiResource|null
+     * @return \Telnyx\ApiResource|void|null
      */
     public function send($notifiable, Notification $notification)
     {
@@ -27,12 +28,12 @@ class SmsChannel extends BaseChannel
         $message = $notification->toTelnyx($notifiable);
 
         if (is_string($message)) {
-            $message = new TelnyxMessage($message);
+            $message = new TelnyxSmsMessage($message);
         }
 
         Telnyx::setApiKey(config('laravel-telnyx.api_key'));
 
-        return \Telnyx\Message::Create([
+        return Message::Create([
             "messaging_profile_id" => $this->profileId,
             'from' => $message->from ?: $this->from,
             'to' => $to,
