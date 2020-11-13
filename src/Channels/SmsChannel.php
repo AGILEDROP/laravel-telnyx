@@ -2,7 +2,6 @@
 
 namespace AGILEDROP\LaravelTelnyx\Channels;
 
-use AGILEDROP\LaravelTelnyx\Messages\TelnyxSmsMessage;
 use Illuminate\Notifications\Notification;
 use Telnyx\Message;
 use Telnyx\Telnyx;
