@@ -2,7 +2,7 @@
 
 namespace AGILEDROP\LaravelTelnyx\Messages;
 
-class TelnyxBaseMessage
+abstract class TelnyxBaseMessage
 {
 
     /**

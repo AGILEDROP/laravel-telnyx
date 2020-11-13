@@ -27,10 +27,6 @@ class SmsChannel extends BaseChannel
         // toTelnyx() has to be implemented in the notification
         $message = $notification->toTelnyx($notifiable);
 
-        if (is_string($message)) {
-            $message = new TelnyxSmsMessage($message);
-        }
-
         Telnyx::setApiKey(config('laravel-telnyx.api_key'));
 
         return Message::Create([

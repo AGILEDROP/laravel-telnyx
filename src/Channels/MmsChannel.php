@@ -2,7 +2,6 @@
 
 namespace AGILEDROP\LaravelTelnyx\Channels;
 
-use AGILEDROP\LaravelTelnyx\Messages\TelnyxMmsMessage;
 use Illuminate\Notifications\Notification;
 use Telnyx\Message;
 use Telnyx\Telnyx;
@@ -26,10 +25,6 @@ class MmsChannel extends BaseChannel
 
         // toTelnyx() has to be implemented in the notification
         $message = $notification->toTelnyx($notifiable);
-
-        if (is_string($message)) {
-            $message = new TelnyxMmsMessage($message);
-        }
 
         Telnyx::setApiKey(config('laravel-telnyx.api_key'));
 
