@@ -5,49 +5,43 @@ namespace AGILEDROP\LaravelTelnyx\Messages;
 class TelnyxSmsMessage extends TelnyxBaseMessage
 {
     /**
-     * The message text content.
-     *
-     * @var string
-     */
-    public $content;
-
-    /**
      * The phone number the message should be sent from.
      *
      * @var string
      */
-    public $from;
+    public string $from;
 
     /**
-     * The message type.
+     * The message text content.
      *
      * @var string
      */
-    public $type = 'text';
+    public string $content;
 
     /**
-     * The custom Telnyx client instance.
+     * Set the from phone number for the sms message.
      *
-     * @var \Telnyx\Client|null
+     * @param $from
+     *
+     * @return $this
      */
-    public $client;
+    public function from($from)
+    {
+        $this->from = $from;
+
+        return $this;
+    }
 
     /**
-     * The client reference.
+     * Set the content of the the sms message.
      *
-     * @var string
-     */
-    public $clientReference = '';
-
-    /**
-     * Create a new message instance.
-     *
-     * @param  string  $from
      * @param  string  $content
+     * @return $this
      */
-    public function __construct(string $from, string $content)
+    public function content(string $content)
     {
         $this->content = $content;
-        $this->from = $from;
+
+        return $this;
     }
 }

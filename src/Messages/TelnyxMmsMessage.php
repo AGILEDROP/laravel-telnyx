@@ -5,67 +5,84 @@ namespace AGILEDROP\LaravelTelnyx\Messages;
 class TelnyxMmsMessage extends TelnyxBaseMessage
 {
     /**
+     * The phone number the message should be sent from.
+     *
+     * @var string
+     */
+    public string $from;
+
+    /**
      * The message text content.
      *
      * @var string
      */
-    public $content;
+    public string $content;
 
     /**
      * The message subject
      *
      * @var string
      */
-    public $subject;
+    public string $subject;
 
     /**
      * The message image urls
      *
-     * @var string
+     * @var array
      */
-    public $images;
+    public array $images;
 
     /**
-     * The phone number the message should be sent from.
+     * Set the from phone number for the mms message.
      *
-     * @var string
+     * @param $from
+     *
+     * @return $this
      */
-    public $from;
+    public function from($from)
+    {
+        $this->from = $from;
+
+        return $this;
+    }
 
     /**
-     * The message type.
+     * Set the content of the the mms message.
      *
-     * @var string
-     */
-    public $type = 'text';
-
-    /**
-     * The custom Telnyx client instance.
-     *
-     * @var \Telnyx\Client|null
-     */
-    public $client;
-
-    /**
-     * The client reference.
-     *
-     * @var string
-     */
-    public $clientReference = '';
-
-    /**
-     * Create a new message instance.
-     *
-     * @param  string  $from
      * @param  string  $content
-     * @param  string  $subject
-     * @param  array|null  $images
+     * @return $this
      */
-    public function __construct(string $from, string $content, string $subject = '', array $images = null)
+    public function content(string $content)
     {
         $this->content = $content;
+
+        return $this;
+    }
+
+    /**
+     * Set the subject of the mms message.
+     *
+     * @param $subject
+     *
+     * @return $this
+     */
+    public function subject($subject)
+    {
         $this->subject = $subject;
+
+        return $this;
+    }
+
+    /**
+     * Set the images of the the mms message.
+     *
+     * @param  array  $images
+     * @return $this
+     */
+    public function images(array $images)
+    {
         $this->images = $images;
-        $this->from = $from;
+
+        return $this;
     }
 }
