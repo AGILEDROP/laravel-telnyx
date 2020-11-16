@@ -1,7 +1,7 @@
 # Laravel Telnyx Driver
 
 [![Latest Version on Packagist](https://img.shields.io/packagist/v/agiledrop/laravel-telnyx.svg?style=flat-square)](https://packagist.org/packages/agiledrop/laravel-telnyx)
-[![GitHub Tests Action Status](https://img.shields.io/github/workflow/status/agiledrop/laravel-telnyx/run-tests?label=tests)](https://github.com/agiledrop/laravel-telnyx/actions?query=workflow%3Arun-tests+branch%3Amaster)
+[![GitHub Tests Action Status](https://img.shields.io/github/workflow/status/agiledrop/laravel-telnyx/Tests?label=tests)](https://github.com/agiledrop/laravel-telnyx/actions?query=workflow%Tests+branch%3Amaster)
 [![Total Downloads](https://img.shields.io/packagist/dt/agiledrop/laravel-telnyx.svg?style=flat-square)](https://packagist.org/packages/agiledrop/laravel-telnyx)
 
 This package enables Telnyx driver functionality using the Sms facade in Laravel 7+.   
