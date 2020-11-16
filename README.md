@@ -93,6 +93,7 @@ public function via($notifiable)
 public function toTelnyx($notifiable)
 {
     return (new TelnyxSmsMessage)
+        ->from("+39000000000");
         ->content("The text content of the message");
 }
 ```
@@ -122,11 +123,10 @@ public function via($notifiable)
 public function toTelnyx($notifiable)
 {
     return (new TelnyxMmsMessage)
-        ->content(
-            "The content of the message",
-            "The message subject",
-            $theArrayWithImagesUrls,
-        );
+            ->from("+39000000000");
+            ->content("The text content of the mms")
+            ->subject("The text subject of the mms")
+            ->images(['https://picsum.photos/1.jpg', 'https://picsum.photos/2.jpg']);
 }
 ```
 
