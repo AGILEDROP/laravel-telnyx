@@ -71,7 +71,7 @@ In your Laravel Notification you just need to
 ### For SMS
 ``` php
 
-use AGILEDROP\LaravelTelnyx\Messages\TelnyxMessage;
+use AGILEDROP\LaravelTelnyx\Messages\TelnyxSmsMessage;
 
 /**
  * Get the notification's delivery channels.
@@ -92,7 +92,7 @@ public function via($notifiable)
  */
 public function toTelnyx($notifiable)
 {
-    return (new TelnyxMessage)
+    return (new TelnyxSmsMessage)
         ->content("The text content of the message");
 }
 ```
@@ -100,7 +100,7 @@ public function toTelnyx($notifiable)
 ### For MMS
 ``` php
 
-use AGILEDROP\LaravelTelnyx\Messages\TelnyxMessage;
+use AGILEDROP\LaravelTelnyx\Messages\TelnyxMmsMessage;
 
 /**
  * Get the notification's delivery channels.
@@ -121,7 +121,7 @@ public function via($notifiable)
  */
 public function toTelnyx($notifiable)
 {
-    return (new TelnyxMessage)
+    return (new TelnyxMmsMessage)
         ->content(
             "The content of the message",
             "The message subject",
@@ -151,6 +151,7 @@ Please review [our security policy](../../security/policy) on how to report secu
 ## Credits
 
 - [Davide Casiraghi](https://github.com/DavideCasiraghi)
+- [Jernej Beg](https://github.com/jernejbeg)
 - [All Contributors](../../contributors)
 
 ## License

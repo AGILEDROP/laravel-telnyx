@@ -14,10 +14,6 @@ class LaravelTelnyxServiceProvider extends ServiceProvider
             $this->publishes([
                 __DIR__ . '/../config/laravel-telnyx.php' => config_path('laravel-telnyx.php'),
             ], 'config');
-
-            /*$this->commands([
-                LaravelTelnyxCommand::class,
-            ]);*/
         }
     }
 
