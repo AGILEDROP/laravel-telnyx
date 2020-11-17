@@ -132,6 +132,14 @@ public function toTelnyx($notifiable)
 
 ## Testing
 
+To test you need to create a `.env` file with the Telnyx credentials.
+eg.
+```
+TELNYX_API_KEY=0000000000
+TELNYX_FROM=+10000000000
+TELNYX_MESSAGING_PROFILE_ID=0000000-0000-0000-000000000
+```
+
 ``` bash
 composer test
 ```
