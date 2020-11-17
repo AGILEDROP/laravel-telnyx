@@ -1,7 +1,7 @@
 # Laravel Telnyx Driver
 
 [![Latest Version on Packagist](https://img.shields.io/packagist/v/agiledrop/laravel-telnyx.svg?style=flat-square)](https://packagist.org/packages/agiledrop/laravel-telnyx)
-[![GitHub Tests Action Status](https://img.shields.io/github/workflow/status/agiledrop/laravel-telnyx/run-tests?label=tests)](https://github.com/agiledrop/laravel-telnyx/actions?query=workflow%3Arun-tests+branch%3Amaster)
+[![GitHub Tests Action Status](https://img.shields.io/github/workflow/status/agiledrop/laravel-telnyx/Tests?label=tests)](https://github.com/agiledrop/laravel-telnyx/actions?query=workflow%Tests+branch%3Amaster)
 [![Total Downloads](https://img.shields.io/packagist/dt/agiledrop/laravel-telnyx.svg?style=flat-square)](https://packagist.org/packages/agiledrop/laravel-telnyx)
 
 This package enables Telnyx driver functionality using the Sms facade in Laravel 7+.   
@@ -71,7 +71,7 @@ In your Laravel Notification you just need to
 ### For SMS
 ``` php
 
-use AGILEDROP\LaravelTelnyx\Messages\TelnyxMessage;
+use AGILEDROP\LaravelTelnyx\Messages\TelnyxSmsMessage;
 
 /**
  * Get the notification's delivery channels.
@@ -92,7 +92,8 @@ public function via($notifiable)
  */
 public function toTelnyx($notifiable)
 {
-    return (new TelnyxMessage)
+    return (new TelnyxSmsMessage)
+        ->from("+39000000000");
         ->content("The text content of the message");
 }
 ```
@@ -100,7 +101,7 @@ public function toTelnyx($notifiable)
 ### For MMS
 ``` php
 
-use AGILEDROP\LaravelTelnyx\Messages\TelnyxMessage;
+use AGILEDROP\LaravelTelnyx\Messages\TelnyxMmsMessage;
 
 /**
  * Get the notification's delivery channels.
@@ -121,16 +122,23 @@ public function via($notifiable)
  */
 public function toTelnyx($notifiable)
 {
-    return (new TelnyxMessage)
-        ->content(
-            "The content of the message",
-            "The message subject",
-            $theArrayWithImagesUrls,
-        );
+    return (new TelnyxMmsMessage)
+            ->from("+39000000000");
+            ->content("The text content of the mms")
+            ->subject("The text subject of the mms")
+            ->images(['https://picsum.photos/1.jpg', 'https://picsum.photos/2.jpg']);
 }
 ```
 
 ## Testing
+
+To test you need to create a `.env` file with the Telnyx credentials.
+eg.
+```
+TELNYX_API_KEY=0000000000
+TELNYX_FROM=+10000000000
+TELNYX_MESSAGING_PROFILE_ID=0000000-0000-0000-000000000
+```
 
 ``` bash
 composer test
@@ -151,6 +159,7 @@ Please review [our security policy](../../security/policy) on how to report secu
 ## Credits
 
 - [Davide Casiraghi](https://github.com/DavideCasiraghi)
+- [Jernej Beg](https://github.com/jernejbeg)
 - [All Contributors](../../contributors)
 
 ## License

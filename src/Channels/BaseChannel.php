@@ -3,7 +3,6 @@
 namespace AGILEDROP\LaravelTelnyx\Channels;
 
 use Illuminate\Notifications\Notification;
-use Telnyx\Telnyx;
 
 abstract class BaseChannel
 {
@@ -25,9 +24,9 @@ abstract class BaseChannel
     /**
      * Create a new Telnyx channel instance.
      *
-     * @param string $from
+     * @param $profileId
+     * @param  string  $from
      *
-     * @return void
      */
     public function __construct($profileId, $from)
     {
