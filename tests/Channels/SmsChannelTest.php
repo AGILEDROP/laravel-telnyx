@@ -4,18 +4,18 @@ namespace AGILEDROP\LaravelTelnyx\Tests\Channels;
 
 use AGILEDROP\LaravelTelnyx\Channels\SmsChannel;
 use AGILEDROP\LaravelTelnyx\Messages\TelnyxSmsMessage;
+use AGILEDROP\LaravelTelnyx\Tests\TestCase;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Notifications\Notification;
-use AGILEDROP\LaravelTelnyx\Tests\TestCase;
 use Mockery as m;
 //use Nexmo\Client;
 use Telnyx\Message;
 use Telnyx\Telnyx;
 
-
 class SmsChannelTest extends TestCase
 {
-    public function testSmsIsSentViaTelnyx() {
+    public function testSmsIsSentViaTelnyx()
+    {
         $notification = new NotificationTelnyxSmsChannelTestNotification;
         $notifiable = new NotificationTelnyxSmsChannelTestNotifiable;
 

@@ -9,14 +9,14 @@ class TelnyxSmsMessage extends TelnyxBaseMessage
      *
      * @var string
      */
-    public ?string $from = NULL;
+    public ?string $from = null;
 
     /**
      * The message text content.
      *
      * @var string
      */
-    public ?string $content = NULL;
+    public ?string $content = null;
 
     /**
      * Set the from phone number for the sms message.
