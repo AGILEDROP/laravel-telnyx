@@ -9,7 +9,7 @@ This package enables Telnyx driver functionality using the Sms facade in Laravel
 ## Prerequisites
 
 
-You first need to register a Telnyx account, generate a **phone number** a **messaging profile**, 
+You first need to register a [Telnyx](https://telnyx.com/) account, generate a **phone number** a **messaging profile**, 
 and an **API key**.  
 
 Notice that at the moment just American phone numbers are allowed to send SMS, so you will need to generate an American number.
