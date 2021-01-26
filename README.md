@@ -6,6 +6,13 @@
 
 This package enables Telnyx driver functionality using the Sms facade in Laravel 7+.   
 
+## Prerequisites
+
+
+You first need to register a Telnyx account, generate a **phone number** a **messaging profile**, 
+and an **API key**.  
+
+Notice that at the moment just American phone numbers are allowed to send SMS, so you will need to generate an American number.
 
 ## Installation
 
@@ -15,7 +22,7 @@ You can install the package via composer:
 composer require agiledrop/laravel-telnyx
 ```
 
-You can publish and run the migrations with:
+You should publish and run the migrations with:
 
 ```bash
 php artisan vendor:publish --provider="AGILEDROP\LaravelTelnyx\LaravelTelnyxServiceProvider" --tag="migrations"
@@ -68,67 +75,177 @@ In your Laravel Notification you just need to
 - Specify the notification channel
 - import the class and implement the toTelnyx() method.
 
-### For SMS
+
+
+## Sending an SMS notification
+This is an example of SMS notification.
+
+### Create a notification
+
+Generate a notification with an artisan command:
+```
+php artisan make:notification SmsNotification
+```
+
+This will create for you the file at ```app/Notifications/SmsNotification.php```
+
+Then paste in that the following code:
+
+
 ``` php
 
+<?php
+
+namespace App\Notifications;
+
+use Illuminate\Bus\Queueable;
 use AGILEDROP\LaravelTelnyx\Messages\TelnyxSmsMessage;
+use Illuminate\Notifications\Notification;
 
-/**
- * Get the notification's delivery channels.
- *
- * @param  mixed  $notifiable
- * @return array
- */
-public function via($notifiable)
+class SmsNotification extends Notification
 {
-    return ['telnyx-sms'];
-}
+    use Queueable;
 
-/**
- * Get the Telnyx / SMS representation of the notification.
- *
- * @param  mixed  $notifiable
- * @return TelnyxMessage
- */
-public function toTelnyx($notifiable)
-{
-    return (new TelnyxSmsMessage)
-        ->from("+39000000000");
-        ->content("The text content of the message");
+    private string $from;
+    private string $content;
+
+    /**
+     * Create a new notification instance.
+     *
+     * @param string $from
+     * @param string $content
+     */
+    public function __construct(string $from, string $content)
+    {
+        $this->from = $from;
+        $this->content = $content;
+    }
+
+    /**
+     * Get the notification's delivery channels.
+     *
+     * @param  mixed  $notifiable
+     * @return array
+     */
+    public function via($notifiable): array
+    {
+        return ['telnyx-sms'];
+    }
+
+
+    /**
+     * Get the Telnyx / SMS representation of the notification.
+     *
+     * @param  mixed  $notifiable
+     * @return TelnyxSmsMessage
+     */
+    public function toTelnyx($notifiable): TelnyxSmsMessage
+    {
+        return (new TelnyxSmsMessage())
+           ->from($this->from)
+           ->content($this->content);
+    }
 }
 ```
 
-### For MMS
-``` php
+Then to use this notification, just import it in where you need it and run it like below:
+```php
+use App\Notifications\Alerts\SmsNotification;
+// ...
+$from = env('TELNYX_FROM');
+$content = 'The text of your sms…';
+$admin->notify(new SmsNotification($from, $content));
+```
 
+## Sending an MMS notification (available just for US)
+
+This is an example of MMS notification.
+
+### Create a notification with an artisan command:
+```
+php artisan make:notification MmsNotification
+```
+This will create: ```/App/Notification/MmsNotification.php.```
+
+Then paste in that the following code:
+
+```php
+<?php
+
+namespace App\Notifications;
+
+use Illuminate\Bus\Queueable;
 use AGILEDROP\LaravelTelnyx\Messages\TelnyxMmsMessage;
+use Illuminate\Notifications\Notification;
 
-/**
- * Get the notification's delivery channels.
- *
- * @param  mixed  $notifiable
- * @return array
- */
-public function via($notifiable)
+class MmsNotification extends Notification
 {
-    return ['telnyx-mms'];
-}
+    use Queueable;
 
-/**
- * Get the Telnyx / MMS representation of the notification.
- *
- * @param  mixed  $notifiable
- * @return TelnyxMessage
- */
-public function toTelnyx($notifiable)
-{
-    return (new TelnyxMmsMessage)
-            ->from("+39000000000");
-            ->content("The text content of the mms")
-            ->subject("The text subject of the mms")
-            ->images(['https://picsum.photos/1.jpg', 'https://picsum.photos/2.jpg']);
+    private string $content;
+    private string $subject;
+    private array $images;
+    private string $from;
+
+    /**
+     * Create a new notification instance.
+     *
+     * @param string $content
+     * @param string $subject
+     * @param array $images
+     * @param string $from
+     */
+    public function __construct(string $from, string $content, string $subject, array $images)
+    {
+        $this->from = $from;
+        $this->content = $content;
+        $this->subject = $subject;
+        $this->images = $images;
+    }
+
+    /**
+     * Get the notification's delivery channels.
+     *
+     * @param  mixed  $notifiable
+     * @return array
+     */
+    public function via($notifiable): array
+    {
+        return ['telnyx-mms'];
+    }
+
+
+    /**
+     * Get the Telnyx / SMS representation of the notification.
+     *
+     * @param  mixed  $notifiable
+     * @return TelnyxMmsMessage
+     */
+    public function toTelnyx($notifiable): TelnyxMmsMessage
+    {
+        return (new TelnyxMmsMessage())
+            ->from($this->from)
+            ->content($this->content)
+            ->subject($this->subject)
+            ->images($this->images);
+    }
 }
 ```
+
+Then to use this notification, just import it where you need and run it like below:
+
+```php
+use App\Notifications\Alerts\MmsNotification;
+…
+
+$from = env('TELNYX_FROM');
+$content = 'The text of your mms…';
+$subject = 'The mms subject';
+$photos = []; //Array with images urls
+$member->notify(new MmsNotification($from, $content, $subject, $photos));
+```
+
+
 
 ## Testing
 
