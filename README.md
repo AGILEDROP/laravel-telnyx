@@ -159,6 +159,39 @@ $content = 'The text of your sms…';
 $admin->notify(new SmsNotification($from, $content));
 ```
 
+### Override the RouteNotificationFor in your user model
+This metod is used to determine where to route the notification to.
+
+```php
+    /**
+     * Override the RouteNotificationFor
+     *
+     * The routeNotificationFor() method exists in the Notifications\RoutesNotifications trait,
+     * this trait is used inside the Notifications\Notifiable trait that a User model uses
+     * by default in a fresh laravel installation,
+     * this method is used to determine where to route the notification to.
+     *
+     * @param string $driver
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\MorphMany|string
+     */
+    public function routeNotificationFor(string $driver)
+    {
+        if (method_exists($this, $method = 'routeNotificationFor' . Str::studly($driver))) {
+            return $this->{$method}();
+        }
+
+        switch ($driver) {
+            case 'database':
+                return $this->notifications();
+            case 'mail':
+                return $this->email; // set here the name of your user mail field
+            case 'telnyx':
+                return $this->phone; // set here the name of your user phone field
+        }
+    }
+```
+
 ## Sending an MMS notification (available just for US)
 
 This is an example of MMS notification.
