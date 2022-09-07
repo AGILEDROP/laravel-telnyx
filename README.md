@@ -24,13 +24,6 @@ You can install the package via composer:
 composer require agiledrop/laravel-telnyx
 ```
 
-You should publish and run the migrations with:
-
-```bash
-php artisan vendor:publish --provider="AGILEDROP\LaravelTelnyx\LaravelTelnyxServiceProvider" --tag="migrations"
-php artisan migrate
-```
-
 You should publish the config file with:
 ```bash
 php artisan vendor:publish --provider="AGILEDROP\LaravelTelnyx\LaravelTelnyxServiceProvider" --tag="config"
@@ -154,7 +147,7 @@ Then to use this notification, just import it in where you need it and run it li
 ```php
 use App\Notifications\Alerts\SmsNotification;
 // ...
-$from = env('TELNYX_FROM');
+$from = config('laravel-telnyx.from');
 $content = 'The text of your sms…';
 $admin->notify(new SmsNotification($from, $content));
 ```
@@ -163,32 +156,9 @@ $admin->notify(new SmsNotification($from, $content));
 This metod is used to determine where to route the notification to.
 
 ```php
-    /**
-     * Override the RouteNotificationFor
-     *
-     * The routeNotificationFor() method exists in the Notifications\RoutesNotifications trait,
-     * this trait is used inside the Notifications\Notifiable trait that a User model uses
-     * by default in a fresh laravel installation,
-     * this method is used to determine where to route the notification to.
-     *
-     * @param string $driver
-     *
-     * @return \Illuminate\Database\Eloquent\Relations\MorphMany|string
-     */
-    public function routeNotificationFor(string $driver)
+    public function routeNotificationForTelnyx()
     {
-        if (method_exists($this, $method = 'routeNotificationFor' . Str::studly($driver))) {
-            return $this->{$method}();
-        }
-
-        switch ($driver) {
-            case 'database':
-                return $this->notifications();
-            case 'mail':
-                return $this->email; // set here the name of your user mail field
-            case 'telnyx':
-                return $this->phone; // set here the name of your user phone field
-        }
+        return $this->phone; // set here the name of your user phone field
     }
 ```
 
@@ -273,7 +243,7 @@ Then to use this notification, just import it where you need and run it like bel
 use App\Notifications\Alerts\MmsNotification;
 …
 
-$from = env('TELNYX_FROM');
+$from = config('laravel-telnyx.from');
 $content = 'The text of your mms…';
 $subject = 'The mms subject';
 $photos = []; //Array with images urls
